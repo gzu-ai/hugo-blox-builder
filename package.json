@@ -5,12 +5,11 @@
   "author": "George Cushen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HugoBlox/hugo-blox-builder/issues"
+    "url": "https://github.com/gzu-ai/hugo-blox-builder/issues"
   },
-  "homepage": "https://hugoblox.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HugoBlox/hugo-blox-builder.git"
+    "url": "git+https://github.com/gzu-ai/hugo-blox-builder.git"
   },
   "dependencies": {
     "katex": "^0.16.9",
