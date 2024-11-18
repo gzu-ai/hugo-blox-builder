@@ -1,0 +1,45 @@
+{{/*  通过allLang控制语言筛选  */}}
+
+{{$type:=.type  }}
+{{$allLang:= .allLang }}
+
+{{ $regularPages :=  site.RegularPages }}
+{{ if  $allLang }}
+  {{ $regularPages =  site.AllPages }}
+{{ end }}
+
+{{ $regularPages := where $regularPages "Kind" "page" }}
+
+{{ if .authors}}
+    {{ $regularPages = where $regularPages "Params.authors" "intersect" (.authors) }}
+{{ end }}
+
+
+{{ if .type }}
+    {{ $regularPages = where $regularPages "Type" $type }}
+{{ else }}
+    {{ $regularPages = where $regularPages ".IsNode" false }}
+{{ end }}
+
+
+{{$articles:= $regularPages}}
+
+{{ if $allLang }}
+  {{ $preferredLang := page.Lang }}
+  {{ $uniquePages := slice }}
+  {{ range  $regularPages  }}
+    {{ $page := . }}
+
+    {{ with .Translations }}
+      {{ range . }}
+        {{ if eq .Lang $preferredLang }}
+          {{ $page = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ $uniquePages = $uniquePages | append $page }}
+  {{end}}
+  {{$articles = uniq $uniquePages}}
+{{ end }}
+
+{{ return $articles }}

@@ -2,7 +2,7 @@
 
 {{/* Require Isotope */}}
 {{ $.Page.Store.Set "has_isotope" true }}
-
+{{ $pages := partial "functions/get_all_pages.html" (dict "type" "publication" "allLang" true) }}
 {{ partial "page_header.html" . }}
 
 <div class="universal-wrapper">
@@ -14,7 +14,7 @@
       {{ end }}
 
       {{/* Array of distinct years. */}}
-      {{ range .Pages.ByDate.Reverse }}
+      {{ range $pages.ByDate.Reverse }}
         {{ $year := print (.Date.Format "2006") }}
         {{ $.Scratch.SetInMap "years" $year $year }}
       {{ end }}
@@ -50,7 +50,7 @@
       </div>
 
       <div id="container-publications">
-        {{ range $index, $item := .Pages.ByDate.Reverse }}
+        {{ range $index, $item := $pages.ByDate.Reverse }}
 
         {{ if .Params.publication_types }}
           {{ $.Scratch.Set "pubtype" (index .Params.publication_types 0) }}

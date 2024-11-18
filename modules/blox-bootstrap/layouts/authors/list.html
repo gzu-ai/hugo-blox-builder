@@ -19,11 +19,11 @@
       {{ $params := dict "wcPage" $ "wcBlock" . "author" $username }}
       {{ partial $widget $params }}
     {{end}}
-
-    {{ $query := where .Pages ".IsNode" false }}
+    {{ $query := partial "functions/get_all_pages.html" (dict "allLang" true "authors" .Params.authors ) }}
     {{ $count := len $query }}
     {{ if $count }}
     <div class="article-widget content-widget-hr">
+      
       <h3>{{ i18n "user_profile_latest" | default "Latest" }}</h3>
       <ul>
         {{ range $query }}
