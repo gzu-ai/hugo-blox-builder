@@ -39,15 +39,20 @@
 {{ if eq $map_provider "google" }}
   <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.features.map.api_key }}"></script>
   {{ if ($scr.Get "use_cdn") }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}
+  {{ partial "functions/get_remote_js" (dict "url" (printf $js.gmaps.url $js.gmaps.version) "name" "gmaps" "version" $js.gmaps.version "sri" $js.gmaps.sri) }}  
+
+    {{/*  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.gmaps.url $js.gmaps.version) $js.gmaps.sri | safeHTML }}  */}}
   {{ end }}
 {{ else if (in (slice "mapnik" "mapbox") $map_provider) | and ($scr.Get "use_cdn") }}
-  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}
+  {{ partial "functions/get_remote_js" (dict "url" (printf $js.leaflet.url $js.leaflet.version) "name" "leaflet" "version" $js.leaflet.version "sri" $js.leaflet.sri) }}  
+  {{/*  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.leaflet.url $js.leaflet.version) $js.leaflet.sri | safeHTML }}  */}}
 {{ end }}
 
 {{/* Load hash anchors for documentation pages. */}}
 {{ if in (slice "book" "docs") .Type }}
-{{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}
+{{ partial "functions/get_remote_js" (dict "url" (printf $js.anchor.url $js.anchor.version) "name" "anchor" "version" $js.anchor.version "sri" $js.anchor.sri) }}  
+
+{{/*  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}  */}}
 <script>
   anchors.add();
 </script>
@@ -69,8 +74,11 @@
     </div>
   </script>
   {{ if ($scr.Get "use_cdn") }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}
-    {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}
+  {{ partial "functions/get_remote_js" (dict "url" (printf $js.fuse.url $js.fuse.version) "name" "fuse" "version" $js.fuse.version "sri" $js.fuse.sri) }}  
+  {{ partial "functions/get_remote_js" (dict "url" (printf $js.mark.url $js.mark.version) "name" "mark" "version" $js.mark.version "sri" $js.mark.sri) }}  
+
+    {{/*  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.fuse.url $js.fuse.version) $js.fuse.sri | safeHTML }}  */}}
+    {{/*  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.mark.url $js.mark.version) $js.mark.sri | safeHTML }}  */}}
   {{ end }}
 {{ else if eq $search_provider "algolia" }}
   {{/* Algolia search result template. */}}

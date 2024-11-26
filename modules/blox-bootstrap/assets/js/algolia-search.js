@@ -6,7 +6,7 @@
  **************************************************/
 
 import {algoliaConfig, i18n, content_type} from '@params';
-import algoliasearch from 'https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.esm.browser.js';
+import algoliasearch from '_vendor/algoliasearch.esm.browser.js';
 // import instantsearch from 'https://cdn.jsdelivr.net/npm/instantsearch.js@4/es/index.js'
 // import {searchBox, infiniteHits} from 'https://cdn.jsdelivr.net/npm/instantsearch.js@4/es/widgets/index.js';
 

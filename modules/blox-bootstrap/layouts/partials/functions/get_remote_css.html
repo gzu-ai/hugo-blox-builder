@@ -1,0 +1,5 @@
+
+{{ with resources.GetRemote .url }}
+{{ $resource := .Content | resources.FromString (printf "css/%s@%s.css" $.name $.version) }}
+<link rel="stylesheet" href="{{ $resource.RelPermalink }}"  crossorigin="anonymous" media="print" onload="this.media='all'">
+{{ end }}

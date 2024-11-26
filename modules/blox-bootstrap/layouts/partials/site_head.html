@@ -38,12 +38,14 @@
 
   {{ $css := site.Data.assets.css }}
   {{ $js := site.Data.assets.js }}
+   <!--Config  -->
 
   {{/* Config LaTeX math rendering. */}}
-  {{ if or .Params.math site.Params.features.math.enable }}
+  {{/*  {{ if or .Params.math site.Params.features.math.enable  }}  */}}
+   <!--mathjax  -->
     {{ $mathjax_config := resources.Get "js/mathjax-config.js" }}
     <script src="{{ $mathjax_config.RelPermalink }}"></script>
-  {{ end }}
+  {{/*  {{ end }}  */}}
 
   {{/* Attempt to load local vendor CSS, otherwise load from CDN. */}}
 
@@ -74,7 +76,11 @@
   {{ else }}
     {{ $scr.Set "use_cdn" 1 }}
     {{ if site.Params.extensions.academicons.enable }}
-      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.academicons.url $css.academicons.version) $css.academicons.sri | safeHTML }}
+    {{ partial "functions/get_remote_css" (dict "url" (printf $css.academicons.url $css.academicons.version) "name" "academicons" "version" $css.academicons.version) }}
+    {{/*  {{ with resources.GetRemote (printf $css.academicons.url $css.academicons.version) }}
+      {{ $resource := .Content | resources.FromString (printf "css/academicons@%s.css" $css.academicons.version) }}
+        <link rel="stylesheet" href="{{ $resource.RelPermalink }}"  crossorigin="anonymous" media="print" onload="this.media='all'">
+    {{ end }}  */}}
     {{ end }}
 
     {{/* Workaround `.HasShortcode "gallery"` not parsing page resources (widget page sections) */}}
@@ -110,28 +116,34 @@
     {{/* Maps CSS. */}}
     {{ $map_provider := lower site.Params.features.map.provider }}
     {{ if in (slice "mapnik" "mapbox") $map_provider }}
-      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
+      {{ partial "functions/get_remote_css" (dict "url" (printf  $css.leaflet.url $css.leaflet.version) "name" "leaflet" "version" $css.leaflet.version) }}
+
+      {{/*  {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}  */}}
     {{ end }}
 
     {{ if eq (lower site.Params.features.search.provider) "algolia" }}
-      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}
+      {{ partial "functions/get_remote_css" (dict "url" (printf  $css.instantsearch.url $css.instantsearch.version) "name" "instantsearch" "version" $css.instantsearch.version) }}
+      {{/*  {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\">" (printf $css.instantsearch.url $css.instantsearch.version) $css.instantsearch.sri | safeHTML }}  */}}
     {{ else if eq (lower site.Params.features.search.provider) "docsearch" }}
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
     {{ end }}
 
     {{/* Load async scripts. */}}
+    
     {{ range $k, $v := site.Data.assets.js }}
+
       {{/* TODO: investigate why `where ... "async" true` does not work. */}}
-      {{ $load := $v.async }}
 
       {{/* Only load MathJax if required. */}}
-      {{ if (eq $k "mathJax") | and (not (or $.Params.math site.Params.features.math.enable)) }}
-        {{ $load = false }}
-      {{ end }}
+      {{/*  {{ if (eq $k "mathJax") | and (not (or $.Params.math site.Params.features.math.enable)) }}  */}}
+        {{/*  {{ $load = false }}  */}}
+      {{/*  {{ end }}  */}}
+      {{ partial "functions/get_remote_js" (dict "url" (printf $v.url $v.version) "name" $k "version" $v.version "sri" $v.sri) }}
 
-      {{ if $load }}
-        {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" async></script>" (printf $v.url $v.version) $v.sri | safeHTML }}
-      {{ end }}
+        {{/*  {{ with resources.GetRemote (printf $v.url $v.version) }}
+          {{ $resource := .Content | resources.FromString (printf "js/%s@%s.js" $k $v.version) }}
+          <script src="{{ $resource.RelPermalink }}" integrity="{{$v.sri}}" crossorigin="anonymous" async></script>
+        {{ end }}  */}}
     {{ end }}
   {{ end }}
 

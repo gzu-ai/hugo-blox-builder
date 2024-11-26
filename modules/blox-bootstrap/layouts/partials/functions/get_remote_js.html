@@ -1,0 +1,4 @@
+{{ with resources.GetRemote .url }}
+{{ $resource := .Content | resources.FromString (printf "js/%s@%s.js" $.name $.version) }}
+<script src="{{ $resource.RelPermalink }}" integrity="{{$.sri}}" crossorigin="anonymous" async></script>
+{{ end }}
