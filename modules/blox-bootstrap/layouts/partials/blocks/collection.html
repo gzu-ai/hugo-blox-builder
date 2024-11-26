@@ -5,7 +5,7 @@
 {{/* Initialise */}}
 {{ $page := .wcPage }}
 {{ $block := .wcBlock }}
-
+{{ $allLang := .wcBlock.content.allLang|default false }}
 {{ $items_offset := $block.content.offset | default 0 }}
 {{ $items_count := $block.content.count }}
 {{ if eq $items_count 0 }}
@@ -16,6 +16,9 @@
 
 {{/* Query */}}
 {{ $query := site.RegularPages }}
+{{ if  $allLang }}
+  {{ $query = where site.AllPages ".IsNode" false }}
+{{ end }}
 {{ $archive_page := "" }}
 
 {{/* Filters */}}
@@ -60,6 +63,24 @@
 {{ end }}
 {{ if $block.content.filters.exclude_future }}
   {{ $query = where $query "Date" "<" now }}
+{{ end }}
+
+{{ if $allLang }}
+  {{ $preferredLang := page.Lang }}
+  {{ $uniquePages := slice }}
+  {{ range  $query  }}
+    {{ $page := . }}
+
+    {{ with .Translations }}
+      {{ range . }}
+        {{ if eq .Lang $preferredLang }}
+          {{ $page = . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ $uniquePages = $uniquePages | append $page }}
+  {{end}}
+  {{$query = uniq $uniquePages}}
 {{ end }}
 
 {{ $count := len $query }}

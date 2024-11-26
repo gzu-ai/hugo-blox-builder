@@ -19,7 +19,13 @@
       {{ $params := dict "wcPage" $ "wcBlock" . "author" $username }}
       {{ partial $widget $params }}
     {{end}}
-    {{ $query := partial "functions/get_all_pages.html" (dict "allLang" true "authors" .Params.authors ) }}
+    {{$query := slice }}
+    {{ if  .File}}
+      {{ $query = partial "functions/get_all_pages.html" (dict "allLang" true "authors" .Params.authors ) }}
+
+    {{ else }}
+      {{ $query = where .Pages ".IsNode" false }}
+    {{ end }}
     {{ $count := len $query }}
     {{ if $count }}
     <div class="article-widget content-widget-hr">
