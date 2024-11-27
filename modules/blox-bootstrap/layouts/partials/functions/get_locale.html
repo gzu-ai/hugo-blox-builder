@@ -1,0 +1,10 @@
+{{ $locale:= site.Params.locale }}
+{{ range site.Params.locales }}
+
+{{ if  eq .lang site.Language.Lang}}
+    {{ $locale = .  }}
+    {{break }}
+{{ end }}
+    
+{{ end }}
+{{ return $locale }}

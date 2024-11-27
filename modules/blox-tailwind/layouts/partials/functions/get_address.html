@@ -2,10 +2,10 @@
 
 {{/* Check for valid site config. */}}
 {{ if not site.Data.address_formats }}{{errorf "Address formats missing from `data/address_formats.toml`!"}}{{end}}
-
+{{ $locale := partial "functions/get_locale.html" . }}
 {{ $page := . }}
 {{ $address := .address }}
-{{ $format_name := $page.Params.address_format | default site.Params.locale.address_format | default "en-us" }}
+{{ $format_name := $page.Params.address_format | default $locale.address_format | default "en-us" }}
 
 {{ if not (isset site.Data.address_formats $format_name) }}{{ errorf "Address format `%s` missing from `data/address_formats.toml`!" $format_name }}{{end}}
 
