@@ -116,9 +116,8 @@
     {{/* Maps CSS. */}}
     {{ $map_provider := lower site.Params.features.map.provider }}
     {{ if in (slice "mapnik" "mapbox") $map_provider }}
-      {{ partial "functions/get_remote_css" (dict "url" (printf  $css.leaflet.url $css.leaflet.version) "name" "leaflet" "version" $css.leaflet.version) }}
-
-      {{/*  {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}  */}}
+      {{/*  {{ partial "functions/get_remote_css" (dict "url" (printf  $css.leaflet.url $css.leaflet.version) "name" "leaflet" "version" $css.leaflet.version) }}  */}}
+      {{ printf "<link rel=\"stylesheet\" href=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\" media=\"print\" onload=\"this.media='all'\">" (printf $css.leaflet.url $css.leaflet.version) $css.leaflet.sri | safeHTML }}
     {{ end }}
 
     {{ if eq (lower site.Params.features.search.provider) "algolia" }}

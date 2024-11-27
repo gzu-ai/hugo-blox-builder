@@ -25,9 +25,9 @@
   sri = "sha512-gauu0VKZq9ry8hOZHgNpcB2ogbSDojs+XLDItpOLY0IyA+KigeuT/suwSdPgfU/TGYLAn4Nan4OeaCa/UPr70Q=="
   url = "https://cdn.jsdelivr.net/gh/hpneo/gmaps@%s/gmaps.min.js"
 [js.leaflet]
-  version = "1.7.1"
+  version = "1.9.4"
   sri = ""  # Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
-  url = "https://cdn.jsdelivr.net/npm/leaflet@%s/dist/leaflet.min.js"
+  url = "https://cdn.bootcdn.net/ajax/libs/leaflet/%s/leaflet.min.js"
 [js.fancybox]
   version = "3.5.7"
   sri = "sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
@@ -67,9 +67,9 @@
   sri = "sha512-IW0nhlW5MgNydsXJO40En2EoCkTTjZhI3yuODrZIc8cQ4h1XcF53PsqDHa09NqnkXuIe0Oiyyj171BqZFwISBw=="
   url = "https://cdn.jsdelivr.net/gh/jpswalsh/academicons@%s/css/academicons.min.css"
 [css.leaflet]
-  version = "1.7.1"
+  version = "1.9.4"
   sri = ""  # Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
-  url = "https://cdn.jsdelivr.net/npm/leaflet@%s/dist/leaflet.min.css"
+  url = "https://cdn.bootcdn.net/ajax/libs/leaflet/%s/leaflet.min.css"
 [css.fancybox]
   version = "3.5.7"
   sri = "sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw=="
