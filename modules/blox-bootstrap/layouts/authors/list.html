@@ -24,7 +24,8 @@
       {{ $query = partial "functions/get_all_pages.html" (dict "allLang" true "authors" .Params.authors ) }}
 
     {{ else }}
-      {{ $query = where .Pages ".IsNode" false }}
+      {{ $query = partial "functions/get_all_pages.html" (dict "allLang" true "authors" (slice .Title) ) }}
+      {{/*  {{ $query = where .Pages ".IsNode" false }}  */}}
     {{ end }}
     {{ $count := len $query }}
     {{ if $count }}
