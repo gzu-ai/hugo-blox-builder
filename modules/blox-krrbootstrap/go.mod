@@ -1,4 +1,4 @@
-module github.com/gzu-ai/hugo-blox-builder/modules/blox-bootstrap/v5
+module github.com/gzu-ai/hugo-blox-builder/modules/blox-krrbootstrap/v1
 
 go 1.15
 
