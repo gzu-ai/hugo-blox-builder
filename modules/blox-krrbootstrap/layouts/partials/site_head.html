@@ -204,6 +204,10 @@
     <link rel="stylesheet" href="{{ $hl_theme_light_css.RelPermalink }}" title="hl-light" media="print" onload="this.media='all'" {{ if ne ($scr.Get "light") true }}disabled{{end}}>
     <link rel="stylesheet" href="{{ $hl_theme_dark_css.RelPermalink }}" title="hl-dark" media="print" onload="this.media='all'" {{ if eq ($scr.Get "light") true }}disabled{{end}}>
   {{ end }}
+  {{ $search_provider := lower site.Params.features.search.provider }}
+  {{ if eq $search_provider "custom" }}
+      {{ partial "partials/custom/search_head"  site.Params.features.search.custom}}
+  {{ end }}
 
   {{/* Load SEO module */}}
   {{ partial "blox_seo" . }}

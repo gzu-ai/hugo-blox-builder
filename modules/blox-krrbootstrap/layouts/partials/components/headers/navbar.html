@@ -161,7 +161,13 @@
         {{ $show_search := site.Params.header.navbar.show_search | default true }}
         {{ if and site.Params.features.search.provider $show_search | and (ne (lower site.Params.features.search.provider) "docsearch") }}
         <li class="nav-item">
+
+          {{ if eq (lower site.Params.features.search.provider) "custom" }}
+            {{ partial "partials/custom/search_nav"  site.Params.features.search.custom}}
+          {{ else }}
           <a class="nav-link js-search" href="#" aria-label="{{ i18n "search" }}"><i class="fas fa-search" aria-hidden="true"></i></a>
+          {{ end }}
+
         </li>
         {{ end }}
 

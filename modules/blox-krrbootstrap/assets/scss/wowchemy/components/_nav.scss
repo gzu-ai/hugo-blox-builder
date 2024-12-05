@@ -42,6 +42,7 @@
   .nav-item {
     // For z-index compatibility with logo on mobile layout, otherwise nav-item can't be clicked when logo present.
     position: relative;
+    margin: auto;
   }
   @include media-breakpoint-down(md) {
     height: 50px;

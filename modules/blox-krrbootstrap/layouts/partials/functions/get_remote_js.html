@@ -1,4 +1,6 @@
-{{ with resources.GetRemote .url }}
+{{/*  {{ with resources.GetRemote .url }}
 {{ $resource := .Content | resources.FromString (printf "js/%s@%s.js" $.name $.version) }}
 <script src="{{ $resource.RelPermalink }}" integrity="{{$.sri}}" crossorigin="anonymous" async></script>
-{{ end }}
+{{ end }}  */}}
+
+<script src="{{ .url }}" integrity="{{.sri}}" crossorigin="anonymous" async></script>
