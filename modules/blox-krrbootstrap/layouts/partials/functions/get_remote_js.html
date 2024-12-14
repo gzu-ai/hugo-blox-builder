@@ -2,5 +2,8 @@
 {{ $resource := .Content | resources.FromString (printf "js/%s@%s.js" $.name $.version) }}
 <script src="{{ $resource.RelPermalink }}" integrity="{{$.sri}}" crossorigin="anonymous" async></script>
 {{ end }}  */}}
-
-<script src="{{ .url }}" integrity="{{.sri}}" crossorigin="anonymous" async></script>
+{{ if fileExists (printf "static/js/%s@%s.js" .name  .version ) }}
+    <script src="{{ printf "/js/%s@%s.js" .name  .version  | relURL  }}" integrity="{{.sri}}" crossorigin="anonymous" async></script>
+{{ else }}
+    <script src="{{ .url }}" integrity="{{.sri}}" crossorigin="anonymous" async></script>
+{{- end -}}
