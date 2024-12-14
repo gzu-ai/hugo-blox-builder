@@ -4,8 +4,11 @@
 
 .docs-article-container {
   max-width: 760px;
+  flex: 1;
 }
-
+.docs-article-breadcrumb{
+  max-width: 760px;
+}
 /* Documentation: article footer. */
 
 .docs .body-footer {
@@ -21,6 +24,8 @@
 .docs-content {
   order: 1;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .docs-content > h2[id],

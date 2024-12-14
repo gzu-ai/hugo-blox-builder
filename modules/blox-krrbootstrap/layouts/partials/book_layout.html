@@ -27,7 +27,7 @@
 
     <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
 
-      <div class="docs-article-container">
+      <div class="docs-article-breadcrumb">
         {{ if $show_breadcrumb }}
           {{ partial "components/breadcrumb" $current_page }}
         {{ end }}
@@ -90,8 +90,10 @@
 
         {{ partial "page_related" . }}
       </div>
-
-      {{ partial "site_footer" . }}
+      <div>
+        {{ partial "site_footer" . }}
+      </div>
+      
 
     </main>
   </div>
