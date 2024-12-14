@@ -1,3 +1,7 @@
 {{- define "main" -}}
-{{ partial "book_layout.html" . }}
+{{ if and .Parent .Parent.IsHome }}
+    {{ partial "book_list.html" . }}
+{{ else }}
+    {{ partial "book_layout.html" . }}
+{{ end }}
 {{- end -}}

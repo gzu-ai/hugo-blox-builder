@@ -54,7 +54,9 @@
 
 {{/*  {{ printf "<script src=\"%s\" integrity=\"%s\" crossorigin=\"anonymous\"></script>" (printf $js.anchor.url $js.anchor.version) $js.anchor.sri | safeHTML }}  */}}
 <script>
-  anchors.add();
+  window.onload=function(){
+    anchors.add();
+  }
 </script>
 {{ end }}
 
