@@ -1,0 +1,48 @@
+{{/* layouts/shortcodes/github-repo.html */}}
+
+{{ $repo := .Get 0 }}
+{{ $owner := index (split $repo "/") 0 }}
+{{ $name := index (split $repo "/") 1 }}
+
+{{ if not $repo }}
+  <p>Please provide a GitHub repository in the format owner/repo.</p>
+{{ else }}
+  {{ $url := printf "https://api.github.com/repos/%s/%s" $owner $name }}
+  {{ $data := getJSON $url }}
+
+  <div class="github-repo">
+    <div class="repo-header">
+        <div class="repo-title">
+            <i class="fab fa-github"></i>
+              <a href="https://github.com/{{ $repo }}" target="_blank" class="repo-link">{{ $repo }}</a>
+        </div>
+      {{ if $data }}
+      <div class="repo-stats">
+        <div class="stat-item">
+          <i class="fas fa-star"></i> {{ $data.stargazers_count }}
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-code-branch"></i> {{ $data.forks_count }}
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-laptop-code"></i> {{ $data.language }}
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-clock"></i> {{ $data.updated_at |  time.Format "2006-01-02 15:04" }}
+        </div>
+      </div>
+    {{ else }}
+      <p>Could not retrieve repository data.</p>
+    {{ end }}
+    </div>
+
+    <div class="repo-description">
+      {{ with .Get 1 }}
+        <p>{{ . }}</p>
+      {{ else }}
+        <p>No description available for this repository.</p>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
+

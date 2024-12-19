@@ -1,0 +1,52 @@
+.github-repo {
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .repo-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content:space-between;
+    flex-flow: wrap;
+    font-size: 0.9rem;
+  }
+  .repo-stats{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    margin: auto 0;
+    .stat-item {
+        margin: auto 3px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+  }
+  
+  .repo-header a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .repo-header a:hover {
+    text-decoration: underline;
+  }
+  
+  .repo-description {
+    margin-top: 8px;
+    font-size: 0.8rem;
+  }
+  .repo-title{
+    display: flex;
+    align-items: center;
+    .repo-link{
+        margin: auto 5px;
+    }
+    i{
+        font-size: 1.2rem;
+    }
+  }
